@@ -4,6 +4,7 @@ import 'package:mtc/controller/home_page_controller.dart';
 import 'package:mtc/mtc_app.dart';
 import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_string.dart';
+import 'package:mtc/resource/constant.dart';
 import 'package:mtc/widgets/login_dialog.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -26,23 +28,40 @@ class HomePage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      controller.openLoginDialog();
+                      if(!Constant.isUserLogin.value){
+                        controller.openLoginDialog();
+                      }else{
+
+                      }
                     },
                     child: Row(
                       textDirection: TextDirection.rtl,
                       children: [
                         Icon(Icons.account_circle, size: MtcApp.appDimens.largeIconSize, color: Colors.white),
                         SizedBox(width: MtcApp.appDimens.smallSpace),
-                        Text(AppString.goToPortal, style: TextStyle(color: Colors.white, fontSize: MtcApp.appDimens.mediumFontSize)),
+                        Obx(
+                          () => Text(
+                            Constant.isUserLogin.value ? controller.userData?.name ?? '' : AppString.goToPortal,
+                            style: TextStyle(color: Colors.white, fontSize: MtcApp.appDimens.mediumFontSize),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Expanded(child: SizedBox()),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(MtcApp.appDimens.tinySpace),
-                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                    child: Center(child: Icon(Icons.logout, color: AppColor.redColor, size: MtcApp.appDimens.standardIconSize)),
+                  Obx(
+                    () => Visibility(
+                      visible: Constant.isUserLogin.value,
+                      child: GestureDetector(
+                        onTap: controller.callLogoutApi,
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.all(MtcApp.appDimens.tinySpace),
+                          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                          child: Center(child: Icon(Icons.logout, color: AppColor.redColor, size: MtcApp.appDimens.standardIconSize)),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

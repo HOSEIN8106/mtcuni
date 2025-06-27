@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mtc/mtc_app.dart';
@@ -5,7 +7,13 @@ import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_string.dart';
 
 class LoginDialog extends StatelessWidget {
-  LoginDialog({super.key});
+  final Function(String, String) onLoginClick;
+  final RxBool showLoading;
+
+  LoginDialog({super.key, required this.onLoginClick, required this.showLoading});
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   var isObscureText = true.obs;
 
@@ -37,6 +45,7 @@ class LoginDialog extends StatelessWidget {
                     bottom: MtcApp.appDimens.tinySpace,
                   ),
                   child: TextField(
+                    controller: usernameController,
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
                       filled: true,
@@ -67,6 +76,7 @@ class LoginDialog extends StatelessWidget {
                   ),
                   child: Obx(
                     () => TextField(
+                      controller: passwordController,
                       textAlign: TextAlign.right,
                       obscureText: isObscureText.value,
                       decoration: InputDecoration(
@@ -97,19 +107,30 @@ class LoginDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
-                  padding: EdgeInsets.symmetric(vertical: MtcApp.appDimens.xSmallSpace),
-                  decoration: BoxDecoration(
-                    color: AppColor.bGreenColor,
-                    borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.xSmallSpace)),
-                  ),
-                  child: Center(
-                    child: Text(
-                      AppString.login,
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
+                GestureDetector(
+                  onTap: () async {
+                    onLoginClick.call(usernameController.text, passwordController.text);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
+                    padding: EdgeInsets.symmetric(vertical: MtcApp.appDimens.xSmallSpace),
+                    decoration: BoxDecoration(
+                      color: AppColor.bGreenColor,
+                      borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.xSmallSpace)),
+                    ),
+                    child: Center(
+                      child: Obx(
+                        () => Visibility(
+                          visible: showLoading.value,
+                          replacement: Text(
+                            AppString.login,
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
+                          ),
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
                 ),

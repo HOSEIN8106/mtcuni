@@ -25,6 +25,7 @@ class ClassSchedulePageController extends GetxController {
     if (response != null && response.statusCode == 200) {
       lessonLoading.value = false;
       final List<LessonsResponse> lessonsList = List<LessonsResponse>.from((response.data['data'] as List).map((x) => LessonsResponse.fromJson(x)));
+      allLessons.clear();
       allLessons.addAll(lessonsList);
       filteredLessons.assignAll(allLessons);
       print(allLessons);
