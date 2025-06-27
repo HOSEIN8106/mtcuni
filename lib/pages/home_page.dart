@@ -6,6 +6,7 @@ import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
 import 'package:mtc/widgets/login_dialog.dart';
+import 'package:mtc/widgets/news_item.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -85,38 +86,20 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(color: AppColor.tDarkBlueColor, fontSize: MtcApp.appDimens.xMediumFontSize, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: MtcApp.appDimens.mediumSpace),
-                        child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: EdgeInsets.only(bottom: MtcApp.appDimens.smallSpace),
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(MtcApp.appDimens.xSmallSpace)),
-                              child: Padding(
-                                padding: EdgeInsets.all(MtcApp.appDimens.xSmallSpace),
-                                child: Column(
-                                  textDirection: TextDirection.rtl,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "تایتل اصلی  خبر",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات خبر", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                    Obx(() => Visibility(
+                      visible: controller.showLoading.value,
+                      replacement: Expanded(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: MtcApp.appDimens.mediumSpace),
+                          child: ListView.builder(
+                            itemCount: controller.allNews.length,
+                            itemBuilder: (context, index) {
+                              return NewsItem(data: controller.allNews[index],);
+                            },
+                          ),
                         ),
-                      ),
-                    ),
+                      ), child: CircularProgressIndicator(),
+                    ),),
                   ],
                 ),
               ),

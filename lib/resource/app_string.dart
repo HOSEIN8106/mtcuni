@@ -2,6 +2,7 @@ class AppString{
   static const String appName = "MTC";
   static const String home = "خانه";
   static const String chats = "پیام ها";
+  static const String manageNotifications = "مدیریت اطلاعیه ها";
   static const String classSchedule = "برنامه کلاسی";
   static const String academicChart = "چارت تحصیلی";
   static const String goToPortal = "ورود به پورتال";
@@ -18,4 +19,7 @@ class AppString{
   static const String myClassSchedule = "برنامه درسی من";
   static const String detailOfChart = "جزئیات چارت درسی";
   static const String show = "مشاهده";
+  static const String someThingWentWrong = "متاسفانه مشکلی پیش آمده است";
+  static const String wrongInputData = "اطلاعات وارد شده صحیح نمی باشد";
+  static const String loginForUse = "برای استفاده از این بخش وارد حساب کاربری خود شوید!";
 }

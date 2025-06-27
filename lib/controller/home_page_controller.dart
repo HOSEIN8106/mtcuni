@@ -6,6 +6,8 @@ import 'package:mtc/api/api_endpoint.dart';
 import 'package:mtc/api/api_service.dart';
 import 'package:mtc/api/models/login/login_request.dart';
 import 'package:mtc/api/models/login/login_response.dart';
+import 'package:mtc/api/models/news_response.dart';
+import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
 import 'package:mtc/utils/utils.dart';
 import 'package:mtc/widgets/login_dialog.dart';
@@ -16,12 +18,30 @@ class HomePageController extends GetxController {
 
   User? userData;
   var showLoadingForLogin = false.obs;
+  var allNews = <NewsResponse>[].obs;
+  var showLoading = true.obs;
 
-  void init() {
-    checkUserIsLogin();
+  void init() async {
+    await checkUserIsLogin();
+    callGetAllNewsApi();
   }
 
-  void checkUserIsLogin() async {
+  void callGetAllNewsApi() async {
+    showLoading.value = true;
+    Map<String, dynamic> data = {};
+    data['expire_at'] = Utils.formatDateTime(DateTime.now());
+    final response = await apiService.get(ApiEndpoint.getAllNews, query: data);
+    if (response != null && response.statusCode == 200) {
+      final List<NewsResponse> newsList = List<NewsResponse>.from((response.data['data'] as List).map((x) => NewsResponse.fromJson(x)));
+      allNews.clear();
+      allNews.addAll(newsList);
+    } else {
+      Utils.showSnackBar(AppString.someThingWentWrong);
+    }
+    showLoading.value = false;
+  }
+
+  Future checkUserIsLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(Constant.accessToken)?.isNotEmpty ?? false) {
       userData = await getUser();
@@ -50,7 +70,7 @@ class HomePageController extends GetxController {
       Get.back();
       checkUserIsLogin();
     } else {
-      Utils.showSnackBar("اطلاعات وارد شده صحیح نمی باشد");
+      Utils.showSnackBar(AppString.wrongInputData);
     }
     showLoadingForLogin.value = false;
   }
@@ -74,12 +94,11 @@ class HomePageController extends GetxController {
     await prefs.remove(Constant.userData);
   }
 
-  void callLogoutApi()async{
+  void callLogoutApi() async {
     final response = await apiService.post(ApiEndpoint.logout, {});
     if (response != null && response.statusCode == 200) {
       apiService.clearToken();
       clearUser();
     }
   }
-
 }

@@ -7,6 +7,7 @@ import 'package:mtc/api/api_service.dart';
 import 'package:mtc/api/models/lesson_response.dart';
 import 'package:mtc/api/models/login/login_request.dart';
 import 'package:mtc/api/models/login/login_response.dart';
+import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
 import 'package:mtc/resource/params.dart';
 import 'package:mtc/routes/app_routes.dart';
@@ -39,6 +40,8 @@ class ClassSchedulePageController extends GetxController {
       allLessons.addAll(lessonsList);
       filteredLessons.assignAll(allLessons);
       print(allLessons);
+    }else{
+      Utils.showSnackBar(AppString.someThingWentWrong);
     }
   }
 
@@ -101,7 +104,7 @@ class ClassSchedulePageController extends GetxController {
       Get.back();
       checkUserIsLogin();
     } else {
-      Utils.showSnackBar("اطلاعات وارد شده صحیح نمی باشد");
+      Utils.showSnackBar(AppString.wrongInputData);
     }
     showLoadingForLogin.value = false;
   }

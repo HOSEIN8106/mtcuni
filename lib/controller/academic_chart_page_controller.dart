@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:mtc/api/api_endpoint.dart';
 import 'package:mtc/api/api_service.dart';
 import 'package:mtc/api/models/chart_response.dart';
+import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/utils/utils.dart';
 
 class AcademicChartPageController extends GetxController {
@@ -33,7 +34,7 @@ class AcademicChartPageController extends GetxController {
       chartData.clear();
       chartData.addAll(chartList);
     } else {
-      Utils.showSnackBar("متاسفانه مشکلی پیش آمده است");
+      Utils.showSnackBar(AppString.someThingWentWrong);
     }
     isShowLoading.value = false;
   }
