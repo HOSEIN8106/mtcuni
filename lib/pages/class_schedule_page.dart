@@ -4,6 +4,7 @@ import 'package:mtc/controller/class_schedule_page_controller.dart';
 import 'package:mtc/mtc_app.dart';
 import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_string.dart';
+import 'package:mtc/resource/constant.dart';
 import 'package:mtc/widgets/lesson_item.dart';
 
 class ClassSchedulePage extends StatelessWidget {
@@ -45,7 +46,11 @@ class ClassSchedulePage extends StatelessWidget {
                   Expanded(child: SizedBox()),
                   GestureDetector(
                     onTap: () {
-                      controller.openMyClassSchedulePage();
+                      if(Constant.isUserLogin.value){
+                        controller.openMyClassSchedulePage();
+                      }else{
+                        controller.openLoginDialog();
+                      }
                     },
                     child: Row(
                       textDirection: TextDirection.rtl,

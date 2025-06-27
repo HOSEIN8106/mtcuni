@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mtc/controller/academic_chart_page_controller.dart';
 import 'package:mtc/enumerations/device_type.dart';
 import 'package:mtc/mtc_app.dart';
 import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_dimens.dart';
 import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
+import 'package:mtc/widgets/chart_item.dart';
 
 class AcademicChartPage extends StatelessWidget {
-  const AcademicChartPage({super.key});
+  AcademicChartPage({super.key});
+
+  AcademicChartPageController controller = Get.find<AcademicChartPageController>();
 
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -22,12 +28,10 @@ class AcademicChartPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.smallSpace)),
                 child: DefaultTabController(
-                  initialIndex: 0,
+                  initialIndex: 1,
                   length: 2,
                   child: TabBar(
-                    onTap: (currentTab) {
-                      // this.currentTab.value = currentTab;
-                    },
+                    onTap: controller.handleTabClick,
                     indicatorColor: Colors.transparent,
                     indicatorSize: TabBarIndicatorSize.tab,
                     overlayColor: WidgetStateColor.transparent,
@@ -49,105 +53,21 @@ class AcademicChartPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  color: AppColor.accentColor,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
-                        child: Text(
-                          AppString.weeklyPlan,
-                          style: TextStyle(color: AppColor.tDarkBlueColor, fontSize: MtcApp.appDimens.xMediumFontSize, fontWeight: FontWeight.bold),
-                        ),
+              child: Container(
+                color: AppColor.accentColor,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
+                      child: Text(
+                        AppString.academicChart,
+                        style: TextStyle(color: AppColor.tDarkBlueColor, fontSize: MtcApp.appDimens.xMediumFontSize, fontWeight: FontWeight.bold),
                       ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: MtcApp.appDimens.mediumSpace),
-                        padding: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.smallSpace))),
-                        child: Column(
-                          children: [
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                            Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight),
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                            Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight),
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
-                        child: Text(
-                          AppString.academicChart,
-                          style: TextStyle(color: AppColor.tDarkBlueColor, fontSize: MtcApp.appDimens.xMediumFontSize, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
+                    ),
+                    Obx(() => Visibility(
+                      visible: controller.isShowLoading.value,
+                      replacement: Container(
                         margin: EdgeInsets.only(
                           right: MtcApp.appDimens.mediumSpace,
                           left: MtcApp.appDimens.mediumSpace,
@@ -155,81 +75,20 @@ class AcademicChartPage extends StatelessWidget {
                         ),
                         padding: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
                         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.smallSpace))),
-                        child: Column(
-                          children: [
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                            Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight),
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                            Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight),
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "عنوان",
-                                      style: TextStyle(
-                                        color: AppColor.tDarkBlueColor,
-                                        fontSize: MtcApp.appDimens.mediumFontSize,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("توضیحات", style: TextStyle(color: AppColor.tGrayColor, fontSize: MtcApp.appDimens.xRegularFontSize)),
-                                  ],
-                                ),
-                                Expanded(child: SizedBox()),
-                                Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
-                              ],
-                            ),
-                          ],
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return ChartItem(data: controller.chartData[index],);
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight);
+                          },
+                          itemCount: controller.chartData.length,
                         ),
-                      ),
-                    ],
-                  ),
+                      ), child: CircularProgressIndicator(),
+                    ),),
+                  ],
                 ),
               ),
             ),
