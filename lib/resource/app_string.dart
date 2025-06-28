@@ -22,4 +22,12 @@ class AppString{
   static const String someThingWentWrong = "متاسفانه مشکلی پیش آمده است";
   static const String wrongInputData = "اطلاعات وارد شده صحیح نمی باشد";
   static const String loginForUse = "برای استفاده از این بخش وارد حساب کاربری خود شوید!";
+  static const String notificationsList = "لیست اطلاعیه ها";
+  static const String titleNotification = "نام اطلاعیه";
+  static const String descriptionNotification = "توضیحات اطلاعیه";
+  static const String linkNotification = "لینک اطلاعیه";
+  static const String expireNotification = "زمان انقضا اطلاعیه";
+  static const String newNotifications = "اطلاعیه جدید";
+  static const String buildNotifications = "ساخت اطلاعیه";
+  static const String pleaseFillInputText = "لطفا مقادیر را پر کنید";
 }

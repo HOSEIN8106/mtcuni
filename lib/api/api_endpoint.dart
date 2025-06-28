@@ -5,4 +5,5 @@ class ApiEndpoint {
   static final String charts = '/charts';
   static final String getAllLessons = '/lessons';
   static final String getAllNews = '/news';
+  static final String creteNewNews = '/news';
 }

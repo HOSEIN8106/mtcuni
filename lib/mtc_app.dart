@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get.dart' as getx;
 import 'package:mtc/theme/app_theme.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 import 'resource/app_color.dart';
 import 'resource/app_dimens.dart';
@@ -34,6 +35,16 @@ class MtcApp extends StatelessWidget {
           // disable system font setting
           return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: childId!);
         },
+      locale: const Locale("en", "US"),
+      supportedLocales: const [
+        Locale("fa", "IR"),
+        Locale("en", "US"),
+      ],
+      localizationsDelegates: const [
+        // Add Localization
+        PersianMaterialLocalizations.delegate,
+        PersianCupertinoLocalizations.delegate,
+      ],
         title: AppString.appName,
         theme: appThemeData,
         debugShowCheckedModeBanner: true,

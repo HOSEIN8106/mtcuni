@@ -6,7 +6,7 @@ import 'package:mtc/api/api_endpoint.dart';
 import 'package:mtc/api/api_service.dart';
 import 'package:mtc/api/models/login/login_request.dart';
 import 'package:mtc/api/models/login/login_response.dart';
-import 'package:mtc/api/models/news_response.dart';
+import 'package:mtc/api/models/news/news_response.dart';
 import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
 import 'package:mtc/utils/utils.dart';
