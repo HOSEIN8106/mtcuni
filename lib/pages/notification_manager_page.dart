@@ -17,12 +17,12 @@ class NotificationManagerPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-            elevation: 0.0,
-            backgroundColor: AppColor.secondaryColor,
-            onPressed: (){
-              controller.openNotificationDialog();
-            },
-            child: Icon(Icons.add,size: MtcApp.appDimens.mediumIconSize,)
+          elevation: 0.0,
+          backgroundColor: AppColor.secondaryColor,
+          onPressed: () {
+            controller.openNotificationDialog();
+          },
+          child: Icon(Icons.add, size: MtcApp.appDimens.mediumIconSize),
         ),
         body: Column(
           children: [
@@ -50,34 +50,35 @@ class NotificationManagerPage extends StatelessWidget {
               ),
             ),
             Obx(
-              () => Visibility(
-                visible: controller.showLoading.value,
-                replacement: Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      right: MtcApp.appDimens.mediumSpace,
-                      left: MtcApp.appDimens.mediumSpace,
-                      top: MtcApp.appDimens.mediumSpace,
-                    ),
-                    child: ListView.builder(
-                      itemCount: controller.allNews.length,
-                      itemBuilder: (context, index) {
-                        return NewsItem(
-                          data: controller.allNews[index],
-                          isEditable: true,
-                          onDeleteClick: () {
-                            //todo add code
+                  () =>
+                  Visibility(
+                    visible: controller.showLoading.value,
+                    replacement: Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: MtcApp.appDimens.mediumSpace,
+                          left: MtcApp.appDimens.mediumSpace,
+                          top: MtcApp.appDimens.mediumSpace,
+                        ),
+                        child: ListView.builder(
+                          itemCount: controller.allNews.length,
+                          itemBuilder: (context, index) {
+                            return NewsItem(
+                              data: controller.allNews[index],
+                              isEditable: true,
+                              onDeleteClick: () {
+                                controller.openDeleteNotificationDialog(controller.allNews[index].id ?? 0);
+                              },
+                              onEditClick: () {
+                                controller.openNotificationDialog(isUpdating: true, updateNewsRequest: controller.allNews[index]);
+                              },
+                            );
                           },
-                          onEditClick: () {
-                            //todo add code
-                          },
-                        );
-                      },
+                        ),
+                      ),
                     ),
+                    child: Padding(padding: EdgeInsets.only(top: MtcApp.appDimens.mediumSpace), child: CircularProgressIndicator()),
                   ),
-                ),
-                child: Padding(padding: EdgeInsets.only(top: MtcApp.appDimens.mediumSpace), child: CircularProgressIndicator()),
-              ),
             ),
           ],
         ),

@@ -45,6 +45,12 @@ class LoginDialog extends StatelessWidget {
                     bottom: MtcApp.appDimens.tinySpace,
                   ),
                   child: TextField(
+                    onTap: () {
+                      final text = usernameController.text;
+                      usernameController.selection = TextSelection.fromPosition(
+                        TextPosition(offset: text.length),
+                      );
+                    },
                     controller: usernameController,
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
@@ -76,6 +82,12 @@ class LoginDialog extends StatelessWidget {
                   ),
                   child: Obx(
                     () => TextField(
+                      onTap: () {
+                        final text = passwordController.text;
+                        passwordController.selection = TextSelection.fromPosition(
+                          TextPosition(offset: text.length),
+                        );
+                      },
                       controller: passwordController,
                       textAlign: TextAlign.right,
                       obscureText: isObscureText.value,

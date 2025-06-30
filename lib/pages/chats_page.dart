@@ -67,44 +67,47 @@ class ChatsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(right: MtcApp.appDimens.mediumSpace, left: MtcApp.appDimens.mediumSpace, top: MtcApp.appDimens.xSmallSpace),
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(bottom: MtcApp.appDimens.smallSpace),
-                          padding: EdgeInsets.all(MtcApp.appDimens.xSmallSpace),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(MtcApp.appDimens.xSmallSpace),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 4,
-                                spreadRadius: 0,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            textDirection: TextDirection.rtl,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                                width: MtcApp.appDimens.xxLargeSpace,
-                                height: MtcApp.appDimens.xxLargeSpace,
-                              ),
-                              SizedBox(width: MtcApp.appDimens.smallSpace),
-                              Text(
-                                "حسین قباسفیدی",
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(color: AppColor.tDarkBlueColor, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: 8,
+                  Visibility(
+                    visible: Constant.isUserLogin.value,
+                    child: Container(
+                      margin: EdgeInsets.only(right: MtcApp.appDimens.mediumSpace, left: MtcApp.appDimens.mediumSpace, top: MtcApp.appDimens.xSmallSpace),
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.only(bottom: MtcApp.appDimens.smallSpace),
+                            padding: EdgeInsets.all(MtcApp.appDimens.xSmallSpace),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(MtcApp.appDimens.xSmallSpace),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 4,
+                                  spreadRadius: 0,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              textDirection: TextDirection.rtl,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                                  width: MtcApp.appDimens.xxLargeSpace,
+                                  height: MtcApp.appDimens.xxLargeSpace,
+                                ),
+                                SizedBox(width: MtcApp.appDimens.smallSpace),
+                                Text(
+                                  "حسین قباسفیدی",
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(color: AppColor.tDarkBlueColor, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: 8,
+                      ),
                     ),
                   ),
                 ],

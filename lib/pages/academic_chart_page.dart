@@ -57,37 +57,43 @@ class AcademicChartPage extends StatelessWidget {
                 color: AppColor.accentColor,
                 child: Column(
                   children: [
-                    Container(
+                    Obx(() => Container(
                       alignment: Alignment.center,
                       margin: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
                       child: Text(
-                        AppString.academicChart,
+                        '${AppString.academicChart} ${controller.isAssociate.value ? AppString.associateDegree : AppString.bachelorsDegree}',
                         style: TextStyle(color: AppColor.tDarkBlueColor, fontSize: MtcApp.appDimens.xMediumFontSize, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Obx(() => Visibility(
-                      visible: controller.isShowLoading.value,
-                      replacement: Container(
-                        margin: EdgeInsets.only(
-                          right: MtcApp.appDimens.mediumSpace,
-                          left: MtcApp.appDimens.mediumSpace,
-                          bottom: MtcApp.appDimens.mediumSpace,
-                        ),
-                        padding: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.smallSpace))),
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ChartItem(data: controller.chartData[index],);
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight);
-                          },
-                          itemCount: controller.chartData.length,
-                        ),
-                      ), child: CircularProgressIndicator(),
                     ),),
+                    Obx(
+                      () => Visibility(
+                        visible: controller.isShowLoading.value,
+                        replacement: Container(
+                          margin: EdgeInsets.only(
+                            right: MtcApp.appDimens.mediumSpace,
+                            left: MtcApp.appDimens.mediumSpace,
+                            bottom: MtcApp.appDimens.mediumSpace,
+                          ),
+                          padding: EdgeInsets.all(MtcApp.appDimens.mediumSpace),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(MtcApp.appDimens.smallSpace)),
+                          ),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return ChartItem(data: controller.chartData[index]);
+                            },
+                            separatorBuilder: (context, index) {
+                              return Divider(color: AppColor.gray100Color, thickness: MtcApp.appDimens.dividerHeight);
+                            },
+                            itemCount: controller.chartData.length,
+                          ),
+                        ),
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                   ],
                 ),
               ),

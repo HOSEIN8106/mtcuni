@@ -29,5 +29,9 @@ class AppString{
   static const String expireNotification = "زمان انقضا اطلاعیه";
   static const String newNotifications = "اطلاعیه جدید";
   static const String buildNotifications = "ساخت اطلاعیه";
+  static const String updateNotifications = "به روزرسانی اطلاعیه";
   static const String pleaseFillInputText = "لطفا مقادیر را پر کنید";
+  static const String areYouSureToDeleteNotification = "آیا از حذف اطلاعیه مطمئن هستید؟";
+  static const String cancel = "انصراف";
+  static const String deleteNewNotifications = "حذف اطلاعیه";
 }
