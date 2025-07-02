@@ -44,7 +44,10 @@ class HomePageController extends GetxController {
   Future checkUserIsLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(Constant.accessToken)?.isNotEmpty ?? false) {
+      Constant.isUserLogin.value = true;
       userData = await getUser();
+    }else{
+      Constant.isUserLogin.value = false;
     }
   }
 

@@ -60,14 +60,12 @@ class ApiService extends GetxService {
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(Constant.accessToken, token);
-    Constant.isUserLogin.value = true;
     _token = token;
   }
 
   Future<void> clearToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(Constant.accessToken);
-    Constant.isUserLogin.value = false;
     _token = null;
   }
 
