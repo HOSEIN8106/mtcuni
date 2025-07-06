@@ -5,6 +5,7 @@ import 'package:mtc/mtc_app.dart';
 import 'package:mtc/resource/app_color.dart';
 import 'package:mtc/resource/app_string.dart';
 import 'package:mtc/resource/constant.dart';
+import 'package:mtc/widgets/chat_item.dart';
 
 class ChatsPage extends StatelessWidget {
   ChatsPage({super.key});
@@ -33,7 +34,7 @@ class ChatsPage extends StatelessWidget {
                   Expanded(child: SizedBox()),
                   Obx(
                     () => Visibility(
-                      visible:Constant.isUserLogin.value && controller.isUserSuperAdmin.value,
+                      visible: Constant.isUserLogin.value && controller.isUserSuperAdmin.value,
                       child: GestureDetector(
                         onTap: () {
                           controller.openNotificationManagerPage();
@@ -44,8 +45,8 @@ class ChatsPage extends StatelessWidget {
                               AppString.manageNotifications,
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
                             ),
-                            SizedBox(width: MtcApp.appDimens.smallSpace,),
-                            Icon(Icons.settings,color: Colors.white,size: MtcApp.appDimens.standardIconSize,)
+                            SizedBox(width: MtcApp.appDimens.smallSpace),
+                            Icon(Icons.settings, color: Colors.white, size: MtcApp.appDimens.standardIconSize),
                           ],
                         ),
                       ),
@@ -67,46 +68,30 @@ class ChatsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Visibility(
-                    visible: Constant.isUserLogin.value,
-                    child: Container(
-                      margin: EdgeInsets.only(right: MtcApp.appDimens.mediumSpace, left: MtcApp.appDimens.mediumSpace, top: MtcApp.appDimens.xSmallSpace),
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.only(bottom: MtcApp.appDimens.smallSpace),
-                            padding: EdgeInsets.all(MtcApp.appDimens.xSmallSpace),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(MtcApp.appDimens.xSmallSpace),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 4,
-                                  spreadRadius: 0,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                                  width: MtcApp.appDimens.xxLargeSpace,
-                                  height: MtcApp.appDimens.xxLargeSpace,
-                                ),
-                                SizedBox(width: MtcApp.appDimens.smallSpace),
-                                Text(
-                                  "حسین قباسفیدی",
-                                  textDirection: TextDirection.rtl,
-                                  style: TextStyle(color: AppColor.tDarkBlueColor, fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.xMediumFontSize),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: 8,
+                  Obx(
+                    () => Visibility(
+                      visible: Constant.isUserLogin.value,
+                      child: Visibility(
+                        visible: controller.showChatLoading.value,
+                        replacement: Container(
+                          margin: EdgeInsets.only(
+                            right: MtcApp.appDimens.mediumSpace,
+                            left: MtcApp.appDimens.mediumSpace,
+                            top: MtcApp.appDimens.xSmallSpace,
+                          ),
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  controller.openChatUserPage(controller.allChats[index]);
+                                },
+                                child: ChatItem(chatsResponse: controller.allChats[index]),
+                              );
+                            },
+                            itemCount: controller.allChats.length,
+                          ),
+                        ),
+                        child: Padding(padding: EdgeInsets.only(top: MtcApp.appDimens.mediumSpace), child: CircularProgressIndicator()),
                       ),
                     ),
                   ),

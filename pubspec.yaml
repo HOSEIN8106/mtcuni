@@ -37,6 +37,9 @@ dependencies:
   url_launcher: ^6.3.1
   persian_datetime_picker: ^3.1.0
   shamsi_date: ^1.1.0
+  chat_bubbles: ^1.7.0
+  open_filex: ^4.7.0
+  path_provider: ^2.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

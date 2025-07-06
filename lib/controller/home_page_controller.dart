@@ -95,6 +95,7 @@ class HomePageController extends GetxController {
   Future<void> clearUser() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(Constant.userData);
+    Constant.isUserLogin.value = false;
   }
 
   void callLogoutApi() async {

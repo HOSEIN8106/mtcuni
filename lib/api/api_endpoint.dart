@@ -3,6 +3,9 @@ class ApiEndpoint {
   static final String login = '/login';
   static final String logout = '/logout';
   static final String charts = '/charts';
+  static final String chats = '/chats';
+  static final String messages = '/messages';
+  static final String sendMessage = '/messages';
   static final String getAllLessons = '/lessons';
   static final String getAllNews = '/news';
   static final String creteNewNews = '/news';

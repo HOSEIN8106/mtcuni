@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtc/api/models/chart_response.dart';
 import 'package:mtc/mtc_app.dart';
 import 'package:mtc/resource/app_color.dart';
+import 'package:mtc/widgets/file_download_widget.dart';
 
 class ChartItem extends StatelessWidget {
   final ChartResponse data;
@@ -30,7 +31,7 @@ class ChartItem extends StatelessWidget {
           ),
         ),
         SizedBox(width: MtcApp.appDimens.mediumSpace,),
-        Icon(Icons.download, color: AppColor.tDarkBlueColor, size: MtcApp.appDimens.mediumIconSize),
+        FileDownloadWidget(fileUrl: data.downloadLink ?? '', fileName: "Mtc-${data.title}"),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mtc/binding/academic_chart_page_binding.dart';
+import 'package:mtc/binding/chat_user_page_binding.dart';
 import 'package:mtc/binding/home_page_binding.dart';
 import 'package:mtc/binding/class_schedule_page_binding.dart';
 import 'package:mtc/binding/main_page_binding.dart';
@@ -8,6 +9,7 @@ import 'package:mtc/binding/my_class_schedule_page_binding.dart';
 import 'package:mtc/binding/notification_manager_page_binding.dart';
 import 'package:mtc/binding/splash_binding.dart';
 import 'package:mtc/pages/academic_chart_page.dart';
+import 'package:mtc/pages/chat_user_page.dart';
 import 'package:mtc/pages/home_page.dart';
 import 'package:mtc/pages/class_schedule_page.dart';
 import 'package:mtc/pages/main_page.dart';
@@ -26,6 +28,7 @@ class AppPages {
     GetPage(name: AppRoutes.MY_CLASS_SCHEDULE_PAGE, page: () => MyClassSchedulePage(), binding: MyClassSchedulePageBinding()),
     GetPage(name: AppRoutes.ACADEMIC_CHART_PAGE, page: () => AcademicChartPage(), binding: AcademicChartPageBinding()),
     GetPage(name: AppRoutes.CHATS_PAGE, page: () => ChatsPage(), binding: ChatsPageBinding()),
+    GetPage(name: AppRoutes.CHAT_USER_PAGE, page: () => ChatUserPage(), binding: ChatUserPageBinding()),
     GetPage(name: AppRoutes.HOME_PAGE, page: () => HomePage(), binding: HomePageBinding()),
     GetPage(name: AppRoutes.NOTIFICATION_MANAGER_PAGE, page: () => NotificationManagerPage(), binding: NotificationManagerPageBinding()),
   ];

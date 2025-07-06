@@ -1,3 +1,3 @@
 class Params {
-  static const String CURRENT_SEARCH_STATE = "currentSearchState";
+  static const String chatData = "chat_data";
 }
