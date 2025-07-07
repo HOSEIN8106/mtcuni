@@ -26,6 +26,11 @@ class FileDownloader {
     return null;
   }
 
+  static Future<String> getLocalFilePath(String fileName) async {
+    final dir = await getApplicationDocumentsDirectory();
+    return '${dir.path}/$fileName';
+  }
+
   static Future<void> openFile(String path) async {
     await OpenFilex.open(path);
   }

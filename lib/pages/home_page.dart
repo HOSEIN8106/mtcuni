@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                         Obx(
                           () => Text(
                             Constant.isUserLogin.value ? controller.userData?.name ?? '' : AppString.goToPortal,
-                            style: TextStyle(color: Colors.white, fontSize: MtcApp.appDimens.mediumFontSize),
+                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: MtcApp.appDimens.mediumFontSize),
                           ),
                         ),
                       ],

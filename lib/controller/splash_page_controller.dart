@@ -3,7 +3,7 @@ import 'package:mtc/routes/app_routes.dart';
 
 class SplashPageController extends GetxController {
   void init() {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 4), () {
       openHomePage();
     });
   }

@@ -113,7 +113,7 @@ class NotificationDialog extends StatelessWidget {
                     },
                     controller: linkController,
                     textAlign: TextAlign.right,
-                    validator: validateUrl, // استفاده از تابع ولیدیشن جداگانه
+                    validator: validateUrl,
                     decoration: _inputDecoration(AppString.linkNotification),
                   ),
                 ),
@@ -207,7 +207,7 @@ class NotificationDialog extends StatelessWidget {
 
   String? validateUrl(String? value) {
     if (value == null || value.isEmpty) {
-      return 'لینک را وارد کنید';
+      return null;
     }
 
     final urlPattern = r'^(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w\-.?=%&]*)*\/?$';

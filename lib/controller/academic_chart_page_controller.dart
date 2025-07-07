@@ -12,6 +12,7 @@ class AcademicChartPageController extends GetxController {
   var isShowLoading = true.obs;
 
   void init() {
+    isAssociate.value = true;
     callChartApi();
   }
 

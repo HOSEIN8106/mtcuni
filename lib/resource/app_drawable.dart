@@ -1,4 +1,4 @@
 class AppDrawable {
   //image resource address
-  static const String landing_img = 'assets/images/landing_img.png';
+  static const String splashLoading = 'assets/anim/splash_loading.json';
 }

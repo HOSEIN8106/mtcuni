@@ -65,8 +65,8 @@ class ChatUserPage extends StatelessWidget {
 
                   return BubbleNormal(
                     text: msg.message ?? '',
-                    isSender: isMe,
-                    color: isMe ? Colors.greenAccent : Colors.grey[300]!,
+                    isSender: !isMe,
+                    color: !isMe ? Colors.greenAccent : Colors.grey[300]!,
                     tail: true,
                     textStyle: const TextStyle(fontSize: 16),
                   );
